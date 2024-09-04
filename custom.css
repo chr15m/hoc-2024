@@ -1,0 +1,27 @@
+a {
+  color: red;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 0.25em 0.5em;
+  font-size: 0.75em;
+}
+
+th {
+  background-color: silver;
+  color: black;
+  border: 1px solid black;
+}
+
+td {
+  border: 1px solid silver;
+  text-align: center;
+}
+
+td:first-child {
+  text-align: left;
+}
