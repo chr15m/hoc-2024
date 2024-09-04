@@ -1,6 +1,6 @@
 {
   "dependencies":{"mdx-deck":"^4.1.1"},
   "scripts": {
-    "start": "mdx-deck slides.mdx"
+    "start": "mdx-deck slides.mdx --no-open --webpack webpack.config.js"
   }
 }
