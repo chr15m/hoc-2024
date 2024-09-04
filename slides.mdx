@@ -1,0 +1,57 @@
+import themeModule from './theme'
+export const theme = themeModule
+
+# Full-stack cljs web apps
+## with and without Sitefox
+
+By Chris McCormick
+
+(chris@mccormick.cx)
+
+---
+
+# Before we start
+### Installing deps
+
+---
+
+# Going all-in on ClojureScript
+
+- what it means
+- why?
+
+---
+
+# The Goal
+## zero to "hello world"
+
+What we are going to do today is go from nothing to "hello world" using each of the technologies or tools.
+
+---
+
+# The tools
+
+- nbb
+- shadow-cljs (frontend)
+- shadow-cljs (full stack)
+- squint
+- scittle
+- sitefox
+
+---
+
+# Table of tradeoffs
+
+| Tool        | Compiled | Java | Clj data | Frontend | Backend | Reagent |
+|-------------|----------|------|----------|----------|---------|---------|
+| nbb         |          |      | X        |          | X       | X       |
+| shadow-cljs | X        | X    | X        | X        | X       | X       |
+| scittle*    |          |      | X        | X        | *x*     | X       |
+| squint      | X        |      |          | X        | X       |         |
+| cherry      | X        |      | X        | X        | X       | X       |
+
+* sitefox is a library/framework you can integrate with these
+* scittle can now be used on the back-end but it's a niche use-case for e.g. webworkers.
+* cherry's provides is a new lightweight cljs variant that compiles to modern JavaScript and integrates well with the existing ecosystem. So far I haven't found a reason to use it over shadow-cljs for my own projects but it may be worth looking into in the future.
+
+---
