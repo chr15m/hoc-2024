@@ -1,5 +1,20 @@
+body > div > div > div {
+  max-width: 80%;
+  margin: 0 auto;
+  /* border: 1px solid red; */
+  text-align: center;
+}
+
+body > div > div > div[class*="-Presenter"] {
+  max-width: unset;
+}
+
 a {
   color: red;
+}
+
+ul {
+  text-align: left;
 }
 
 table {
