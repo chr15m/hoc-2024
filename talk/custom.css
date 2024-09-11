@@ -1,3 +1,13 @@
+:root {
+  --fg: #F2F0EB;
+  --bg: #191817;
+}
+
+body > div > div > div > div {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
 body > div > div > div {
   max-width: 80%;
   margin: 0 auto;
@@ -10,7 +20,7 @@ body > div > div > div[class*="-Presenter"] {
 }
 
 a {
-  color: red;
+  color: #E05555;
 }
 
 ul {
