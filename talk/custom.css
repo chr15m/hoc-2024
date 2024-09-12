@@ -50,3 +50,7 @@ td {
 td:first-child {
   text-align: left;
 }
+
+img {
+  width: auto !important;
+}
