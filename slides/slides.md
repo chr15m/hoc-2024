@@ -3,6 +3,8 @@ defaults:
   layout: center
 ---
 
+<link rel="stylesheet" href="/style.css"/>
+
 # Full-stack cljs web apps
 ## with and without Sitefox
 

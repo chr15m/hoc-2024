@@ -1,0 +1,29 @@
+.slidev-layout {
+  text-align: center;
+}
+
+.slidev-layout ul {
+  margin: auto;
+  display: inline-block;
+}
+
+.slidev-layout ul li {
+  text-align: left;
+}
+
+.slidev-layout td, .slidev-layout th {
+  padding: 0.25em;
+  text-align: center;
+}
+
+.slidev-layout td:first-child, .slidev-layout th:first-child {
+  text-align: left;
+}
+
+.slidev-layout table {
+  margin-bottom: 2em;
+}
+
+.slidev-layout pre {
+  text-align: left;
+}
