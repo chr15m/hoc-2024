@@ -25,7 +25,7 @@ jobs:
     - name: Run setup script
       shell: bash
       run: |
-        output=$(sh check-node-version.sh)
+        output=$(sh check-node-version)
         echo "$output"
         if echo "$output" | grep -q "Success: Node.js.*is already installed and meets the minimum version requirement"; then
           echo "Script passed: Node version is sufficient"
