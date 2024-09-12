@@ -1,10 +1,7 @@
-import "./custom.css"
-import { Notes } from 'mdx-deck'
-
-<!--
-// import themeModule from './theme'
-// export const theme = themeModule
--->
+---
+defaults:
+  layout: center
+---
 
 # Full-stack cljs web apps
 ## with and without Sitefox
@@ -13,7 +10,7 @@ By Chris McCormick
 
 chris @ mccormick.cx
 
-<Notes>
+<!--
 
 Hey, thanks for coming to the workshop today.
 My name is Chris and today we are going to look at full-stack ClojureScript web apps with and without Sitefox.
@@ -43,19 +40,19 @@ Subtext: full stack app with cljs without JVM.
 
 My motivation: full stack js withou the jvm. sitefox is a framework for this. before we get to sitefox we need to understand the different ways to run clojurescript without the JVM and their tradeoffs.
 
-</Notes>
+-->
 
 ---
 
 # ClojureScript w/o the JVM
 
-<Notes>
+<!--
 So I want to show you three main things today.
 Broadly speaking these three things are about running ClojureScript without depending on the JVM.
 The first thing is about building and running ClojureScript in new ways beyond just shadow-cljs, and the tradeoffs of doing that.
 The second thing is about running ClojureScript on the back-end, on the server side, or in the cloud, not just in the browser.
 The third thing is about my own backend web development framework Sitefox, and how that fits into this puzzle of building ClojureScript web technology..
-</Notes>
+-->
 
 ---
 
@@ -65,34 +62,33 @@ The third thing is about my own backend web development framework Sitefox, and h
 - 30 minutes = 6 examples
 - 30 minutes about Sitefox
 
-<Notes>
+<!--
 This is the structure of today's workshop.
-</Notes>
+-->
 
 ---
 
 # Before we start
 ### Check out the repo
 
-import qr from "./files/repo-qr.png"
+<img src="/repo-qr.png"/>
 
-<img src={qr}/>
-<https://github.com/chr15m/hoc-2024>
+[https://github.com/chr15m/hoc-2024](https://github.com/chr15m/hoc-2024)
 
-<Notes>
+<!--
 Before we start I'm going to get you to check out the repo for this workshop.
 The repo contains the slides
-</Notes>
+-->
 
 ---
 
 # Before we start
 ### Checking node version
 
-<Notes>
+<!--
 Before we start let's make sure everybody has the minimum node version required to run the examples.
 You can 
-</Notes>
+-->
 
 ---
 
@@ -106,7 +102,7 @@ You can
 - why?
 
 
-<Notes>
+<!--
 What:
 - JVM versus Node/Browser runtime.
 
@@ -121,17 +117,17 @@ Why:
 - Native handling of web data formats.
 - Well suited for websockets, SSE, streaming.
 
-</Notes>
+-->
 
 ---
 
 # The Goal
 ## zero to "hello world"
 
-<Notes>
+<!--
 What we are going to do today is go from nothing to "hello world" using each of the technologies or tools.
 Examining the tradeoffs of different ClojureScript tooling.
-</Notes>
+-->
 
 ---
 
@@ -153,11 +149,11 @@ Examining the tradeoffs of different ClojureScript tooling.
 | squint      | X        |      |          |         |
 | scittle*    |          |      | X        | X       |
 
-<Notes>
+<!--
 Everyone knows shadow-cljs is the default choice.
 The disadvantage is the JVM dependency, and it's compiled.
 Compiled = more complicated deployment story.
-</Notes>
+-->
 
 
 <!--
@@ -172,17 +168,17 @@ Compiled = more complicated deployment story.
 | squint      | X        |      |          | X        | X       |         |
 
 * sitefox is a framework that runs on top
-* cherry is another borkdude production worth looking at
+* cherry is related to squint
 
 -->
 
-<Notes>
+<!--
 
 * sitefox is a library/framework you can integrate with these
 * scittle can now be used on the back-end but it's a niche use-case for e.g. webworkers.
-* cherrys provides is a new lightweight cljs variant that compiles to modern JavaScript and integrates well with the existing ecosystem. So far I haven't found a reason to use it over shadow-cljs for my own projects but it may be worth looking into in the future.
+* cherry's provides is a new lightweight cljs variant that compiles to modern JavaScript and integrates well with the existing ecosystem. So far I haven't found a reason to use it over shadow-cljs for my own projects but it may be worth looking into in the future.
 
-</Notes>
+-->
 
 
 ---
@@ -255,10 +251,10 @@ npx nbb main.cljs
 
 `npm init shadowfront myproject`
 
-<Notes>
+<!--
 I made create-shadowfront as a fast way to bootstrap a shadow-cljs app.
 This will install the creat-shadowfront script into your npm cache in your homedir. This will be localized to your node version.
-</Notes>
+-->
 
 ---
 
@@ -271,45 +267,45 @@ This will install the creat-shadowfront script into your npm cache in your homed
 
 # Sitefox
 
-<Notes>
+<!--
 Introduction to Sitefox, what is is and why it exists.
 - opinionated
 - batteries included
-</Notes>
+-->
 
 ---
 
 # Sitefox and nbb
 
-<Notes>
+<!--
 Using Sitefox with nbb (backend only).
-</Notes>
+-->
 
 ---
 
 # Sitefox and full-stack shadow-cljs
 
-<Notes>
+<!--
 Using sitefox with full-stack shadow-cljs.
-</Notes>
+-->
 
 ---
 
 # squint
 ### a new borkdude cljs variant
 
-<Notes>
+<!--
 When and why to use squint.
-</Notes>
+-->
 
 ---
 
 # scittle
 ### no-build-step frontends
 
-<Notes>
+<!--
 When and why to use scittle.
-</Notes>
+-->
 
 ---
 
@@ -320,7 +316,7 @@ By Chris McCormick
 
 chris @ mccormick.cx
 
-<Notes>
+<!--
 
 
-</Notes>
+-->
