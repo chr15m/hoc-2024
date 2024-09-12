@@ -1,0 +1,39 @@
+name: Test Node Setup Script
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-setup-script:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [16, 18, 20]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Run setup script
+      shell: bash
+      run: |
+        output=$(sh check-node-version.sh)
+        echo "$output"
+        if echo "$output" | grep -q "Success: Node.js.*is already installed and meets the minimum version requirement"; then
+          echo "Script passed: Node version is sufficient"
+          exit 0
+        elif echo "$output" | grep -q "nvm is not installed"; then
+          echo "Script passed: Lower Node version detected, nvm installation instructions provided"
+          exit 0
+        else
+          echo "Script failed: Unexpected output"
+          exit 1
+        fi

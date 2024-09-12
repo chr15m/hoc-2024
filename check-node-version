@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# Specify the required major Node version
+REQUIRED_MAJOR_VERSION=18
+
+# Function to extract major version
+get_major_version() {
+    echo "$1" | cut -d. -f1
+}
+
+# Check if Node is already installed
+if command -v node >/dev/null 2>&1; then
+    INSTALLED_VERSION=$(node --version | cut -c2-)
+    INSTALLED_MAJOR_VERSION=$(get_major_version "$INSTALLED_VERSION")
+    
+    if [ "$INSTALLED_MAJOR_VERSION" -ge "$REQUIRED_MAJOR_VERSION" ]; then
+        echo "Success: Node.js $INSTALLED_VERSION is already installed and meets the minimum version requirement."
+        exit 0
+    else
+        echo "Installed Node.js version $INSTALLED_VERSION does not meet the minimum requirement. Proceeding with installation."
+    fi
+fi
+
+# Check if nvm is installed
+if ! command -v nvm >/dev/null 2>&1; then
+    echo "nvm is not installed. Please install nvm first."
+    echo "You can install it by running:"
+    echo "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash"
+    exit 1
+fi
+
+# Install and use the latest LTS version of the required major version
+NVM_VERSION="${REQUIRED_MAJOR_VERSION}"
+nvm install "$NVM_VERSION"
+nvm use "$NVM_VERSION"
+
+# Verify the installation
+INSTALLED_VERSION=$(node --version | cut -c2-)
+INSTALLED_MAJOR_VERSION=$(get_major_version "$INSTALLED_VERSION")
+
+if [ "$INSTALLED_MAJOR_VERSION" -eq "$REQUIRED_MAJOR_VERSION" ]; then
+    echo "Success: Node.js $INSTALLED_VERSION has been installed and is now in use."
+else
+    echo "Error: Installation failed. Please try again or install Node.js manually."
+    exit 1
+fi
