@@ -27,3 +27,7 @@
 .slidev-layout pre {
   text-align: left;
 }
+
+.slidev-layout img {
+  margin: auto;
+}
