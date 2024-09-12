@@ -3,23 +3,7 @@ defaults:
   layout: center
 ---
 
-<link rel="stylesheet" href="/style.css"/>
-
-# Full-stack cljs web apps
-## with and without Sitefox
-
-By Chris McCormick
-
-chris @ mccormick.cx
-
 <!--
-
-Hey, thanks for coming to the workshop today.
-My name is Chris and today we are going to look at full-stack ClojureScript web apps with and without Sitefox.
-
-What full-stack ClojureScript means is that you have ClojureScript running on the backend on the server side, not just in the browser.
-
-
 
 Traditionally ClojureScript runs on the front-end in the browser.
 Probably the most common way to run ClojureScript in the browser today is to use shadow-cljs.
@@ -27,8 +11,8 @@ Probably the most common way to run ClojureScript in the browser today is to use
 
 # TODO:
 # - [x] put git repo address in talk
-# - [ ] get the install flow checked with versions
-# - [ ] Think about nvm isolation and out of date shadowfront for example
+# - [x] get the install flow checked with versions
+# - [x] Think about nvm isolation and out of date shadowfront for example
 # - [ ] Create .node_version file?
 # - [ ] Replace shadowfront step with an example folder in the GH repo
 # - [ ] Examples of everything
@@ -44,15 +28,51 @@ My motivation: full stack js withou the jvm. sitefox is a framework for this. be
 
 -->
 
+<link rel="stylesheet" href="/style.css"/>
+
+# Full-stack cljs web apps
+## with and without Sitefox
+
+By Chris McCormick
+
+chris @ mccormick.cx
+
+<!--
+
+Hey, thanks for coming to the workshop today.
+My name is Chris and today we are going to look at full-stack
+ClojureScript web apps with and without Sitefox.
+
+What full-stack ClojureScript means is that you have ClojureScript
+running not just in the browser, but also on the server, on the backend.
+
+Sitefox is the framework I built to give myself a headstart building
+ClojureScript back-ends. Hopefully some of you will find it useful,
+but at the very least you'll learn about what kinds of things a web
+backend needs to do.
+-->
+
 ---
 
 # ClojureScript w/o the JVM
 
+<v-clicks>
+
+- Beyond shadow-cljs
+- ClojureScript on the server
+- Sitefox framework
+
+</v-clicks>
+
 <!--
 So I want to show you three main things today.
+
 Broadly speaking these three things are about running ClojureScript without depending on the JVM.
+
 The first thing is about building and running ClojureScript in new ways beyond just shadow-cljs, and the tradeoffs of doing that.
+
 The second thing is about running ClojureScript on the back-end, on the server side, or in the cloud, not just in the browser.
+
 The third thing is about my own backend web development framework Sitefox, and how that fits into this puzzle of building ClojureScript web technology..
 -->
 
@@ -66,6 +86,14 @@ The third thing is about my own backend web development framework Sitefox, and h
 
 <!--
 This is the structure of today's workshop.
+
+We're going to spend 30 minutes on this current part,
+which is the intro and getting dependencies installed.
+
+Then we are going to spend 30 minutes in a whirlwind tour
+of different ways to run ClojureScript without using the JVM.
+
+Then we are going to spend 30 minutes looking at Sitefox.
 -->
 
 ---
@@ -75,11 +103,12 @@ This is the structure of today's workshop.
 
 <img src="/repo-qr.png"/>
 
-[https://github.com/chr15m/hoc-2024](https://github.com/chr15m/hoc-2024)
+`git clone https://github.com/chr15m/hoc-2024`
 
 <!--
 Before we start I'm going to get you to check out the repo for this workshop.
-The repo contains the slides
+The repo contains these slides and it also contains
+an example folder that we will get to soon.
 -->
 
 ---
@@ -87,14 +116,20 @@ The repo contains the slides
 # Before we start
 ### Checking node version
 
+`./check-node-version`
+
 <!--
-Before we start let's make sure everybody has the minimum node version required to run the examples.
-You can 
+Now that we have the git repo checked out,
+we're going to run this script to check your node version.
+
+If you don't have a recent enough node installed, or any node installed,
+it's going to suggest you install nvm or "Node Version Manager".
+This is an easy way to install specific versions of node.
+If you want to use homebrew or your OS packages that's fine too, as long as your version of node is recent enough to run the examples.
+
+- Has everybody run the script?
+- Does anybody need to upgrade their node version?
 -->
-
----
-
-# Before we start
 
 ---
 
@@ -103,6 +138,11 @@ You can
 - what it means
 - why?
 
+
+```mermaid
+graph TD
+B[ClojureScript<br>browser] --> C{Clojure<br>JVM}
+```
 
 <!--
 What:
