@@ -25,18 +25,22 @@ jobs:
     - name: Run setup script
       shell: bash
       run: |
-        sh check-node-version
-        exit_code=$?
-        if [ $exit_code -eq 0 ]; then
+        # Capture output and exit code without failing on non-zero exit
+        output=$(sh check-node-version 2>&1) || true
+        echo "$output"
+        
+        if echo "$output" | grep -q "Success: Node.js.*is already installed and meets the minimum version requirement"; then
           echo "Script passed: Node version is sufficient"
-        elif [ $exit_code -eq 1 ]; then
+          exit 0
+        elif echo "$output" | grep -q "nvm is not installed"; then
           if [ ${{ matrix.node-version }} -lt 18 ]; then
-            echo "Script passed: Lower Node version detected, exit code 1 as expected"
+            echo "Script passed: Lower Node version detected, nvm installation instructions provided"
+            exit 0
           else
-            echo "Script failed: Unexpected exit code 1 for Node version ${{ matrix.node-version }}"
+            echo "Script failed: Unexpected nvm message for Node version ${{ matrix.node-version }}"
             exit 1
           fi
         else
-          echo "Script failed: Unexpected exit code $exit_code"
+          echo "Script failed: Unexpected output"
           exit 1
         fi
