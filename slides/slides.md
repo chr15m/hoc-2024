@@ -54,26 +54,19 @@ backend needs to do.
 
 ---
 
-# ClojureScript w/o the JVM
+# Before we start
+### Check out the repo
 
-<v-clicks>
+<img src="/repo-qr.png" width=200/>
 
-- Beyond shadow-cljs
-- ClojureScript on the server
-- Sitefox framework
-
-</v-clicks>
+`git clone https://github.com/chr15m/hoc-2024`
 
 <!--
-So I want to show you three main things today.
+Before we start I'm going to get you to check out the repo for this workshop.
+The repo contains these slides and it also contains
+an example folder that we will get to soon.
 
-Broadly speaking these three things are about running ClojureScript without depending on the JVM.
-
-The first thing is about building and running ClojureScript in new ways beyond just shadow-cljs, and the tradeoffs of doing that.
-
-The second thing is about running ClojureScript on the back-end, on the server side, or in the cloud, not just in the browser.
-
-The third thing is about my own backend web development framework Sitefox, and how that fits into this puzzle of building ClojureScript web technology..
+I will leave this QR code and git repo up on the next couple of slides.
 -->
 
 ---
@@ -83,6 +76,12 @@ The third thing is about my own backend web development framework Sitefox, and h
 - 30 minutes intro and deps
 - 30 minutes = 6 examples
 - 30 minutes about Sitefox
+
+<br><br>
+
+<img src="/repo-qr.png" width=150/>
+
+`git clone https://github.com/chr15m/hoc-2024`
 
 <!--
 This is the structure of today's workshop.
@@ -99,33 +98,29 @@ Then we are going to spend 30 minutes looking at Sitefox.
 ---
 
 # Before we start
-### Check out the repo
-
-<img src="/repo-qr.png"/>
-
-`git clone https://github.com/chr15m/hoc-2024`
-
-<!--
-Before we start I'm going to get you to check out the repo for this workshop.
-The repo contains these slides and it also contains
-an example folder that we will get to soon.
--->
-
----
-
-# Before we start
 ### Checking node version
 
 `./check-node-version`
 
+<br>
+<br>
+
+<img src="/repo-qr.png" width=150/>
+
+`git clone https://github.com/chr15m/hoc-2024`
+
+
 <!--
-Now that we have the git repo checked out,
+Once we have the git repo checked out,
 we're going to run this script to check your node version.
 
 If you don't have a recent enough node installed, or any node installed,
 it's going to suggest you install nvm or "Node Version Manager".
 This is an easy way to install specific versions of node.
-If you want to use homebrew or your OS packages that's fine too, as long as your version of node is recent enough to run the examples.
+If you want to use homebrew or your OS packages that's fine too,
+as long as your version of node is recent enough to run the examples.
+
+Let's pause here for a moment to make sure everybody is caught up.
 
 - Has everybody run the script?
 - Does anybody need to upgrade their node version?
@@ -133,16 +128,58 @@ If you want to use homebrew or your OS packages that's fine too, as long as your
 
 ---
 
+# ClojureScript w/o the JVM
+
+<v-clicks>
+
+- Beyond shadow-cljs
+- ClojureScript on the server
+- Sitefox framework
+
+</v-clicks>
+
+<!--
+So I want to show you three main things today.
+
+Broadly speaking these three things are about running ClojureScript without depending on the JVM at runtime.
+
+The first thing is about building and running ClojureScript in new ways beyond just shadow-cljs, and the tradeoffs of doing that, including stacks that don't need the JVM at compile time.
+
+The second thing is about running ClojureScript on the back-end, on the server side, or in the cloud, not just in the browser.
+
+The third thing is about my own backend web development framework Sitefox, and how that fits into this puzzle of building ClojureScript web technology.
+-->
+
+---
+
 # Going all-in on ClojureScript
 
-- what it means
-- why?
+### what it means
 
+---
+
+# Going all-in on ClojureScript
 
 ```mermaid
 graph TD
 B[ClojureScript<br>browser] --> C{Clojure<br>JVM}
 ```
+
+---
+
+# Going all-in on ClojureScript
+
+```mermaid
+graph TD
+B[ClojureScript<br>browser] --> C{ClojureScript<br>node.js}
+```
+
+
+---
+
+# Going all-in on ClojureScript
+
+## why?
 
 <!--
 What:
@@ -159,16 +196,6 @@ Why:
 - Native handling of web data formats.
 - Well suited for websockets, SSE, streaming.
 
--->
-
----
-
-# The Goal
-## zero to "hello world"
-
-<!--
-What we are going to do today is go from nothing to "hello world" using each of the technologies or tools.
-Examining the tradeoffs of different ClojureScript tooling.
 -->
 
 ---
@@ -222,6 +249,15 @@ Compiled = more complicated deployment story.
 
 -->
 
+---
+
+# The Goal
+## zero to "hello world"
+
+<!--
+What we are going to do today is go from nothing to "hello world" using each of the technologies or tools.
+Examining the tradeoffs of different ClojureScript tooling.
+-->
 
 ---
 
@@ -230,8 +266,9 @@ Compiled = more complicated deployment story.
 - nbb
 - shadow frontend
 - shadow fullstack
-- sitefox nbb
 - sitefox shadow-cljs
+- scittle
+- squint
 
 <!--
 
