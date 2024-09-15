@@ -119,11 +119,6 @@ it's going to suggest you install nvm or "Node Version Manager".
 This is an easy way to install specific versions of node.
 If you want to use homebrew or your OS packages that's fine too,
 as long as your version of node is recent enough to run the examples.
-
-Let's pause here for a moment to make sure everybody is caught up.
-
-- Has everybody run the script?
-- Does anybody need to upgrade their node version?
 -->
 
 ---
@@ -138,7 +133,17 @@ Let's pause here for a moment to make sure everybody is caught up.
 
 </v-clicks>
 
+<footer>
+  <code>https://github.com/chr15m/hoc-2024</code>
+  <code>./check-node-version</code>
+</footer>
+
 <!--
+I'm going to crack on with these intro slides but please note the
+GitHub repo in the bottom left and the command you need to run in
+the bottom right. I'll leave those there and we'll check in with
+everyone shortly.
+
 So I want to show you three main things today.
 
 Broadly speaking these three things are about running ClojureScript without depending on the JVM at runtime.
@@ -156,14 +161,36 @@ The third thing is about my own backend web development framework Sitefox, and h
 
 ### what it means
 
+<footer>
+  <code>https://github.com/chr15m/hoc-2024</code>
+  <code>./check-node-version</code>
+</footer>
+
+<!--
+Let's take a closer look at what going full-stack, all-in on ClojureScript means.
+-->
+
 ---
 
 # Going all-in on ClojureScript
 
 ```mermaid
 graph TD
-B[ClojureScript<br>browser] --> C{Clojure<br>JVM}
+B[ClojureScript<br>browser] --> C[Clojure<br>JVM]
 ```
+
+<footer>
+  <code>https://github.com/chr15m/hoc-2024</code>
+  <code>./check-node-version</code>
+</footer>
+
+<!--
+This is a simplified view of the traditional way to run ClojureScript and Clojure together.
+
+Here you can see ClojureScript, usually compiled to JavaScript with shadow-cljs these days, or possibly lein and figwheel, and it is running in the browser.
+
+Below that you can see Clojure running on the server, often from a jar file and using the JVM.
+-->
 
 ---
 
@@ -171,36 +198,65 @@ B[ClojureScript<br>browser] --> C{Clojure<br>JVM}
 
 ```mermaid
 graph TD
-B[ClojureScript<br>browser] --> C{ClojureScript<br>node.js}
+B[ClojureScript<br>browser] --> C[ClojureScript<br>node.js]
 ```
 
+<footer>
+  <code>https://github.com/chr15m/hoc-2024</code>
+  <code>./check-node-version</code>
+</footer>
+
+<!--
+What I'm talking about today is this setup.
+
+The frontend is the same, and we've replaced Clojure on the JVM with ClojureScript running on the Node JavaScript VM instead.
+
+What this means in practice is our interop is no longer calling into Java functions and libraries, but now we are calling into JavaScript functions and libraries and leveraging the Node modules ecosystem on the server side.
+-->
 
 ---
 
-# Going all-in on ClojureScript
+# Full-stack ClojureScript
 
 ## why?
 
+<v-clicks>
+
+- Deployment
+- Dependencies
+- Experience
+- Startup
+- Unified
+
+</v-clicks>
+
+<footer>
+  <code>https://github.com/chr15m/hoc-2024</code>
+  <code>./check-node-version</code>
+</footer>
+
 <!--
-What:
-- JVM versus Node/Browser runtime.
+Why would we even want to do this? The JVM is mature and efficient and Clojure was carefully designed to run on top of it. Why would we want to run ClojureScript code on the server backend as well as the browser frontend?
 
-Why:
-- Deployment environment optimized for JS.
-- Library dependency from npm.
-- Team has experience with JS ecosystem.
-- Fast startup times.
+Here are some of the reasons you might want to do this.
 
-- Non-blocking and event driven architecture (con).
-- Unified language for frontend and backend.
-- Native handling of web data formats.
-- Well suited for websockets, SSE, streaming.
+Your deployment environment might be optimized for JavaScript. For example we might be deploying to a Platform-as-a-Service like Netlify. Or we might have a legacy internal company architecture that is full optimized for deploying JavaScript on the server.
+
+We might have a dependency on a library that is only available as a node package. Maybe you're working in some niche area and there is no Java library for doing the thing you want, but there is a JavaScript library on npm.
+
+You or your team might have a lot of knowledge and experience built up around the Node ecosystem. You might have more experience with Node and JavaScript than Java and the JVM.
+
+You might be after those fast startup times. The Node VM starts fast.
+
+You might be looking for a more unified frontend and backend experience. A closer match between your front end and backend code and especially the interop environment. For example you might want to import and use the same 3rd party node libraries in the browser and on the server side.
+
+So those are some reasons why we might want to run ClojureScript on the backend as well as the frontend.
 
 -->
 
 ---
 
-# N ways to run CLJS without the JVM
+# Ways to run CLJS (without the JVM)
 
 ### CLJS on the Backend
 
@@ -218,30 +274,25 @@ Why:
 | squint      | X        |      |          |         |
 | scittle*    |          |      | X        | X       |
 
-<!--
-Everyone knows shadow-cljs is the default choice.
-The disadvantage is the JVM dependency, and it's compiled.
-Compiled = more complicated deployment story.
--->
-
+* sitefox & cherry
 
 <!--
 
-# Five ways to run CLJS without the JVM
+Today we're going to take a whirlwind tour of these different technologies for running ClojureScript.
 
-| Tool        | Compiled | Java | Clj data | Frontend | Backend | Reagent |
-|-------------|----------|------|----------|----------|---------|---------|
-| nbb         |          |      | X        |          | X       | X       |
-| shadow-cljs | X        | X    | X        | X        | X       | X       |
-| scittle*    |          |      | X        | X        |         | X       |
-| squint      | X        |      |          | X        | X       |         |
+I've divided these into backend and frontend. You can mix and match these different technologies picking one from the backend list and one from the frontend list. On the backend we have shadow-cljs, nbb, and squint. On the frontend we have again shadow-cljs, squint, and scittle.
 
-* sitefox is a framework that runs on top
-* cherry is related to squint
+We're going to look specifically at the reaons and tradeoffs to help you decide when to pick each one. The tradeoffs are summarized here in the columns.
 
--->
+The "compiled" column tells us whether a particular tool has a compilation step, or if you can deploy and run it directly.
 
-<!--
+The "Java" column tells us if the tool needs you to have Java installed at compile time. You can see here that shadow-cljs needs Java at compiled time.
+
+The "Clj data" column tells us whether the tool uses Clojure datastructures under the hood, with the immutability guarantees that come with that.
+
+Finally, the "Reagent" column tells us whether we can use the Reagent library. This is important because there's a lot of Reagent knowledge, experience, and probably legacy code lying around that works with Reagent. I've indicated Reagent on the backend as well because I think that's a nice advantage - using the same components on the server and client.
+
+Note that where Reagent is not available it is the case that no Clojure libraries are available.
 
 * sitefox is a library/framework you can integrate with these
 * scittle can now be used on the back-end but it's a niche use-case for e.g. webworkers.
