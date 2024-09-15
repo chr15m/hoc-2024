@@ -408,7 +408,9 @@ The second interesting thing to note is that there is no compile step and the st
 
 Now take a look at server.cljs - what this does is use Node's express server to stand up a simple webserver. After running it with `npx nbb server.cljs` it runs a simple webserver on port 8000. Visit that page in your web browser to see the hello world string being served.
 
-The final example you can run with `npx nbb server_reagent.cljs`. The main thing to note here is server side Reagent rendering. You need to have React installed to do this because Reagent relies on React. You don't need to isntall Reagent itself because nbb comes with Reagent pre-compiled.
+The final example you can run with `npx nbb server_reagent.cljs`. The main thing to note here is server side Reagent rendering. You need to have React installed to do this because Reagent relies on React. You don't need to install Reagent itself because nbb comes with Reagent pre-compiled.
+
+Notice that I have put a button in the Reagent example, but it doesn't do anything when clicked. This is because we are rendering server side so everything gets turned into plain HTML and of course no event handlers can be found.
 
 -->
 
@@ -463,19 +465,147 @@ Unlike shadow-cljs there is no built in live-reloading and much of the other ext
 # shadow-cljs
 ### pure front-end
 
-`npm init shadowfront myproject`
+<v-clicks>
+
+```shell
+cd examples/shadow-frontend
+ls
+npm install
+```
+
+```
+shadow-cljs.edn
+package.json
+src/app/core.cljs
+public/index.html
+```
+
+</v-clicks>
 
 <!--
-I made create-shadowfront as a fast way to bootstrap a shadow-cljs app.
-This will install the creat-shadowfront script into your npm cache in your homedir. This will be localized to your node version.
+
+Now let's switch to the frontend. This is where shadow-cljs has traditionally been used.
+
+We get started in the same way by going into the folder and doing ls and `npm install`.
+
+Looking at the file structure, our setup is a little more complex than nbb. We have the package.json and the source file, which is in the src/app folder.
+
+The package.json this time contains shadow-cljs itself, and React.
+We also have a shadow-cljs.edn file. This tells Shadow-cljs where the source is, defines Clojure dependencies, which here is Reagent, and then defines the app build since we are dealing with a compilation phase here.
+
+Finally the index.html is there because this is a frontend app and the browser needs to load something.
+
 -->
 
 ---
 
 # shadow-cljs
-### full stack sites
+### pure front-end
 
-`npm init sitefox-shadow-fullstack myproject`
+<v-clicks>
+
+```
+npx shadow-cljs watch app
+```
+
+```
+npx shadow-cljs release app
+```
+
+</v-clicks>
+
+<!--
+
+We run this with `npx shadow-cljs watch app` which sets up the compile and watch loop. Shadow-cljs provides its own dev server and we can visit localhost 8000 to see the page. This time we can click the buttons and the interaction happens as the Reagent rendering is happening in the browser not on the server side.
+
+An interesting thing here is we get all this nice built-in development mode tooling. For example on localhost 9630 we get this dashboard that shows the builds and runtimes and connected browsers. It also has all these nice features like taps and a REPL.
+
+Of course we also get the killer feature of live real-time hot loading of our code changes. When we edit and save the source file we immediately see the changes in the browser.
+
+To compile the app into a production artifact there is this separate build command `npx shadow-cljs release app`. I've set it up here to compile into the build folder.
+
+If we take a look in the build folder we find a main.js artifact that is `275k`. That's a non-trivial amount of JavaScript sent to the frontend. Of course these days there are far heavier JavaScript bundles out there but it is still a non-trivial amount of code for what is a fairly simple interaction.
+
+-->
+
+---
+
+# shadow-cljs frontend
+### tradeoffs
+
+<v-clicks>
+
+- more complex setup
+- compilation step
+- dependent on Java
+- slower startup time
+- consume Node deps
+- consume Clojure deps
+- medium sized artifact (275kb JS)
+- macros
+- reagent available
+- great tooling
+
+</v-clicks>
+
+<!--
+
+Let's take a look at the tradeoffs.
+
+The set up is a bit more complex with more files.
+
+There is a compilation step before we can get our code running. This is true both in development and when making a production build. The code has to be compiled before we can run it.
+
+The compile step is depndent on having Java installed.
+
+The startup time for the dev server to get the app compiled and served is on the order of 10 seconds.
+
+We didn't demonstrate this but we can consume Node dependencies. You can add them to package.json and require them just like with nbb on the server side.
+
+We can also consume Clojure deps by putting them into the shadow-cljs.edn dependencies section.
+
+Our artifact size for a Reagent app is medium sized. It's possible to compile very small frontends with shadow-cljs but you have to forgo Reagent and React. You can get even smaller, down to under 10kb, by getting rid of any native Clojure datastructures but you really have to start contorting things to get down there.
+
+We have macros, which are run at compile time via Clojure.
+
+We have Reagent available via the Clojure dependency pathway.
+
+Finally, we have a really good tooling and live-reloading experience.
+
+-->
+
+---
+
+# shadow-cljs
+### full stack
+
+<v-clicks>
+
+```shell
+cd examples/shadow-fullstack
+ls
+npm install
+```
+
+```
+shadow-cljs.edn
+package.json
+src/app/core.cljs
+src/app/server.cljs
+public/index.html
+```
+
+</v-clicks>
+
+<!--
+
+Now we're going to look at running ClojureScript in the browser and on the server with shadow-cljs. We do this by compiling two different artifacts, one for the client and one for the server. We run the server JavaScript using Node.
+
+Again let's change into the folder, list the files, and npm install the deps.
+
+This time we have a similar setup to the frontend example, but we have an additional file in src/app/server.cljs which of course holds our server code.
+
+-->
 
 ---
 
