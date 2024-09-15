@@ -258,23 +258,23 @@ So those are some reasons why we might want to run ClojureScript on the backend 
 
 # Ways to run CLJS (without the JVM)
 
-### CLJS on the Backend
+### Backend
 
-| Tool        | Compiled | Java | Clj data | Reagent |
-|-------------|----------|------|----------|---------|
-| shadow-cljs | X        | X    | X        | X       |
-| nbb         |          |      | X        | X       |
-| squint      | X        |      |          |         |
+|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
+|-------------|----------|------|----------|---------|---|
+| shadow-cljs | X        | X    | X        | X       |   |
+| nbb         |          |      | X        | X       | X |
+| squint      | X        |      |          |         | X |
 
-### CLJS on the Frontend
+### Frontend
 
-| Tool        | Compiled | Java | Clj data | Reagent |
-|-------------|----------|------|----------|---------|
-| shadow-cljs | X        | X    | X        | X       |
-| squint      | X        |      |          |         |
-| scittle*    |          |      | X        | X       |
+|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
+|-------------|----------|------|----------|---------|---|
+| shadow-cljs | X        | X    | X        | X       |   |
+| scittle*    |          |      | X        | X       | X |
+| squint      | X        |      |          |         | X |
 
-* note: sitefox & cherry
+* sitefox & cherry
 
 <!--
 
@@ -316,7 +316,7 @@ For each tool we're going to get it running, look at the source code, and also t
 
 ---
 
-# The demos
+# The examples
 
 - nbb
 - shadow frontend
@@ -327,6 +327,10 @@ For each tool we're going to get it running, look at the source code, and also t
 
 <!--
 
+These are the six examples we are going to go through.
+
+We have nbb, shadow-cljs frontend, shadow-cljs "full stack", scittle, squint, and finally Sitefox running on shadow-cljs. There's a lot here so let's get started.
+
 -->
 
 ---
@@ -334,40 +338,125 @@ For each tool we're going to get it running, look at the source code, and also t
 # nbb
 ### great for backends
 
-- interpreted
+<v-clicks>
 
-```
-mkdir my-nbb-project
-cd my-nbb-project
-echo {} > package.json
-npm i nbb
-npx nbb
-```
-
-```clojure
-(ns demo)
-
-(print "Hello world!")
+```shell
+cd examples/nbb
+ls
+npm install
 ```
 
 ```
-npm i express
+package.json
+hello.cljs
+server.cljs
+server_reagent.cljs
 ```
 
-```clojure
-(ns main
-  (:require
-    ["express$default" :as express]))
-
-(let [server (express)]
-  (.get server "/" (fn [_req res] (.send res "Hello world!")))
-  (.listen server 3000)
-  (print "Server running on port 3000"))
+package.json
+```json
+{
+  "dependencies": {
+    "express": "^4.21.0",
+    "nbb": "^1.2.192",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
 ```
 
+</v-clicks>
+
+<!--
+
+Nbb provides an easy way to run ClojureScript on the Node runtime.
+
+The first thing to do, as with all of the following examples, is change into the folder and run `ls` and then `npm install` which will install the dependencies.
+
+There are four files here. The first is a standard Node manifest file `package.json` which describes the dependencies which in this case are nbb itself and express and React which I'll get to.
+
+The goal of nbb is to make it easy to do ad-hoc scripting with ClojureScript on Node.js and the first thing to notice here is that it lives up to that promise. You literally only need a package.json file specifying nbb should be installed and you're ready to go.
+
+The other three files are ClojureScript source examples.
+
+-->
+
+---
+
+# nbb
+### great for backends
+
+<v-clicks>
+
 ```
-npx nbb main.cljs
+npx nbb hello.cljs
 ```
+
+```
+npx nbb server.cljs
+```
+
+```
+npx nbb server_reagent.cljs
+```
+
+</v-clicks>
+
+<!--
+
+The second interesting thing to note is that there is no compile step and the startup time is fast. Go ahead and run `npx nbb hello.cljs` and you'll see it print "hello world" immediately. You can look at the source for that file and see it's just a print statement.
+
+Now take a look at server.cljs - what this does is use Node's express server to stand up a simple webserver. After running it with `npx nbb server.cljs` it runs a simple webserver on port 8000. Visit that page in your web browser to see the hello world string being served.
+
+The final example you can run with `npx nbb server_reagent.cljs`. The main thing to note here is server side Reagent rendering. You need to have React installed to do this because Reagent relies on React. You don't need to isntall Reagent itself because nbb comes with Reagent pre-compiled.
+
+-->
+
+---
+
+# nbb
+### tradeoffs
+
+<v-clicks>
+
+- easy to get started
+- no compile step
+- fast startup time
+- backend only
+- consume Node deps
+- consume Clojure deps
+- small artifact (1.2Mb JS)
+- macros
+- reagent available
+- no live-reloading built in
+
+</v-clicks>
+
+<!--
+
+Let's talk about the tradeoffs when using nbb.
+
+It's easy to get started with a simple package.json and standard Node tooling.
+
+There's no compile step, you can just run your code directly on Node.
+
+As we've observed it has a fast startup time.
+
+Nbb only runs on the backend on Node, you can't run it in the browser.
+
+You can easily consume Node dependencies as we saw with the `express` web server in the server demo. You just add the deps to your package.json, do `npm install`, and then you can require them.
+
+It's also possible to consume Clojure deps. To do this you need to have babashka installed and you specify the deps in `nbb.edn`. We won't got into this but it's good to bear in mind.
+
+Nbb is distributed as a compiled JavaScript artifact. When you `npm install` it you only pull down 1.2Mb which is pretty good for a node dependency. Of course this is on the server side where artifact size is maybe less important.
+
+Macros are available.
+
+Reagent is built in and you don't have to install it as a dep.
+
+Unlike shadow-cljs there is no built in live-reloading and much of the other extended shadow-cljs tooling is missing. This makes it more suitable for simpler backends.
+
+-->
 
 ---
 
