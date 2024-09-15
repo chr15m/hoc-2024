@@ -31,3 +31,13 @@
 .slidev-layout img {
   margin: auto;
 }
+
+.slidev-layout footer {
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  left: 0px;
+  padding: 0.5em 1em;
+}
