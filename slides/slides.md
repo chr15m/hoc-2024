@@ -35,7 +35,7 @@ My motivation: full stack js withou the jvm. sitefox is a framework for this. be
 
 By Chris McCormick
 
-chris @ mccormick.cx
+chris@mccormick.cx
 
 <!--
 
@@ -274,11 +274,11 @@ So those are some reasons why we might want to run ClojureScript on the backend 
 | squint      | X        |      |          |         |
 | scittle*    |          |      | X        | X       |
 
-* sitefox & cherry
+* note: sitefox & cherry
 
 <!--
 
-Today we're going to take a whirlwind tour of these different technologies for running ClojureScript.
+Today we're going to take a whirlwind tour of these different technologies for running ClojureScript. I'm going to show you minimal examples of getting each one running.
 
 I've divided these into backend and frontend. You can mix and match these different technologies picking one from the backend list and one from the frontend list. On the backend we have shadow-cljs, nbb, and squint. On the frontend we have again shadow-cljs, squint, and scittle.
 
@@ -290,13 +290,15 @@ The "Java" column tells us if the tool needs you to have Java installed at compi
 
 The "Clj data" column tells us whether the tool uses Clojure datastructures under the hood, with the immutability guarantees that come with that.
 
-Finally, the "Reagent" column tells us whether we can use the Reagent library. This is important because there's a lot of Reagent knowledge, experience, and probably legacy code lying around that works with Reagent. I've indicated Reagent on the backend as well because I think that's a nice advantage - using the same components on the server and client.
+Finally, the "Reagent" column tells us whether we can use the Reagent library. This is important because there's a lot of Reagent knowledge, experience, and probably legacy code lying around. I've indicated Reagent on the backend as well because I think that's a nice advantage - using the same components on the server and client.
 
-Note that where Reagent is not available it is the case that no Clojure libraries are available.
+Note that where Reagent is not available it means no Clojure libraries are available. So loading any Clojure libraries is out.
 
-* sitefox is a library/framework you can integrate with these
-* scittle can now be used on the back-end but it's a niche use-case for e.g. webworkers.
-* cherry's provides is a new lightweight cljs variant that compiles to modern JavaScript and integrates well with the existing ecosystem. So far I haven't found a reason to use it over shadow-cljs for my own projects but it may be worth looking into in the future.
+Just a couple more notes to finish off.
+
+- First, scittle has an asterisk because Michiel Borkent told me it's technically also possible to run scittle on the backend via webworkers.
+- Second, Sitefox is not on here because it's not a tool for running ClojureScript. It's a library that integrates with some of these tools. So it's a different type of beast.
+- Finally there is another tool called cherry, which is related to squint, but at this point I think it's not as widely used. I don't know too much about cherry, but it looks like it could one day be a replacement for shadow-cljs in some situations. Unlike squint it uses native Clojure datastructures and compiles to es6 and integrates well with the existing JavaScript ecosystem.
 
 -->
 
@@ -304,10 +306,12 @@ Note that where Reagent is not available it is the case that no Clojure librarie
 
 # The Goal
 ## zero to "hello world"
+## (tools .forEach)
 
 <!--
-What we are going to do today is go from nothing to "hello world" using each of the technologies or tools.
-Examining the tradeoffs of different ClojureScript tooling.
+What we are going to do today is go from zero to a "hello world" web app using each of the technologies or tools I just showed you.
+
+For each tool we're going to get it running, look at the source code, and also take a look at the tradeoffs.
 -->
 
 ---
@@ -317,20 +321,11 @@ Examining the tradeoffs of different ClojureScript tooling.
 - nbb
 - shadow frontend
 - shadow fullstack
-- sitefox shadow-cljs
 - scittle
 - squint
+- sitefox (on shadow-cljs)
 
 <!--
-
-# The tools
-
-- nbb
-- shadow-cljs (frontend)
-- shadow-cljs (full stack)
-- sitefox (framework / library)
-- squint
-- scittle
 
 -->
 
@@ -425,7 +420,7 @@ Using sitefox with full-stack shadow-cljs.
 ### a new borkdude cljs variant
 
 <!--
-When and why to use squint.
+Note that there is a more detailed and in depth talk about Squint later in the day by Felix Alm called "a taste of Clojure for JavaScript devs".
 -->
 
 ---
@@ -444,7 +439,7 @@ When and why to use scittle.
 
 By Chris McCormick
 
-chris @ mccormick.cx
+chris@mccormick.cx
 
 <!--
 
