@@ -381,6 +381,31 @@ Now we're going to take a look at Squint.
 Note that there is a more detailed and in depth talk about Squint later in the day by Felix Alm called "a taste of Clojure for JavaScript devs".
 -->
 
+
+---
+
+# Ways to run CLJS (without the JVM)
+
+<div class="hi-3">
+
+### Backend
+
+|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
+|-------------|----------|------|----------|---------|---|
+| shadow-cljs | X        | X    | X        | X       |   |
+| nbb         |          |      | X        | X       | X |
+| squint      | X        |      |          |         | X |
+
+### Frontend
+
+|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
+|-------------|----------|------|----------|---------|---|
+| shadow-cljs | X        | X    | X        | X       |   |
+| scittle*    |          |      | X        | X       | X |
+| squint      | X        |      |          |         | X |
+
+</div>
+
 ---
 
 # scittle
@@ -392,40 +417,25 @@ When and why to use scittle.
 
 ---
 
-# Sitefox
+# Ways to run CLJS (without the JVM)
 
-<!--
-Introduction to Sitefox, what is is and why it exists.
-- opinionated
-- batteries included
--->
+### Backend
 
----
+|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
+|-------------|----------|------|----------|---------|---|
+| shadow-cljs | X        | X    | X        | X       |   |
+| nbb         |          |      | X        | X       | X |
+| squint      | X        |      |          |         | X |
 
-# Sitefox and nbb
+### Frontend
 
-<!--
-Using Sitefox with nbb (backend only).
--->
+<div class="hi-2">
 
----
+|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
+|-------------|----------|------|----------|---------|---|
+| shadow-cljs | X        | X    | X        | X       |   |
+| scittle*    |          |      | X        | X       | X |
+| squint      | X        |      |          |         | X |
 
-# Sitefox and full-stack shadow-cljs
+</div>
 
-<!--
-Using sitefox with full-stack shadow-cljs.
--->
-
----
-
-# Full-stack cljs web apps
-## with and without Sitefox
-
-By Chris McCormick
-
-chris@mccormick.cx
-
-<!--
-
-
--->
