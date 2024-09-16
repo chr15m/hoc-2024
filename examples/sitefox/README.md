@@ -1,3 +1,3 @@
 ```
-npm init sitefox-shadow-fullstack demo
+npm init sitefox-shadow-fullstack@latest sitefoxdemo
 ```
