@@ -96,7 +96,7 @@ So those are some reasons why we might want to run ClojureScript on the backend 
 ### Backend
 
 
-|             | Compiled    | Java       | Clj data        | Reagent compat | ![](/bdude.png) |
+|             | Compiled    | Java       | Clj data        | Reagent?       | ![](/bdude.png) |
 |-------------|-------------|------------|-----------------|----------------|-----------------|
 | shadow-cljs | compiled    | java build | clj collections | as library     |                 |
 | nbb         | interpreted | no build   | clj collections | built in       | ✔               |
@@ -104,11 +104,11 @@ So those are some reasons why we might want to run ClojureScript on the backend 
 
 ### Frontend
 
-|             | Compiled    | Java       | Clj data        | Reagent      | ![](/bdude.png) |
-|-------------|-------------|------------|-----------------|--------------|-----------------|
-| shadow-cljs | compiled    | java build | clj collections | as library   |                 |
-| scittle*    | interpreted | no build   | clj collections | js module    | ✔               |
-| squint      | compiled    | node build | js native       | native react | ✔               |
+|             | Compiled    | Java       | Clj data        | Reagent?       | ![](/bdude.png) |
+|-------------|-------------|------------|-----------------|----------------|-----------------|
+| shadow-cljs | compiled    | java build | clj collections | as library     |                 |
+| scittle*    | interpreted | no build   | clj collections | js module      | ✔               |
+| squint      | compiled    | node build | js native       | native react   | ✔               |
 
 * sitefox & cherry
 
@@ -400,3 +400,81 @@ This scittle demo is quite different to the examples we've looked at so far.
 - network tab = 1.14 MB (203.86 kB transferred)
 
 -->
+
+---
+
+# Sitefox
+
+![](/sitefox.svg)
+
+<!--
+
+Introduction to Sitefox, what is is and why it exists.
+
+- story of why i built it:
+  - coming from django
+  - trying to bootstrap sites fast
+
+- opinionated
+- batteries included
+- 12 factor
+- mostly glue code
+
+-->
+
+---
+
+# Sitefox
+
+`npm init sitefox-shadow-fullstack@latest sitefoxdemo`
+
+<v-clicks>
+
+## Batteries included
+
+- Routing (Express)
+- Templates (Reagent)
+- Key-value store + Database (Keyv)
+- Sessions (Express)
+- Authentication (passport.js)
+- Email (Nodemailer)
+- Forms (node-input-validator)
+- Logging (rotating-file-stream)
+- Live reloading (shadow-cljs)
+
+</v-clicks>
+
+<!--
+
+- go into `examples/sitefox`
+- look at README
+- explain about init scripts
+- sets up a shadow-cljs full stack project with sitefox
+- follow the instructions
+
+- demos:
+  - routing
+  - templates (select-apply?)
+  - kv & database
+  - sessions
+  - email
+
+-->
+
+---
+
+# Full-stack cljs web apps
+## with and without Sitefox
+
+By Chris McCormick
+
+chris@mccormick.cx
+
+<!--
+
+- Thanks
+- Special thanks to Dustin Getz
+- How to contact me
+
+-->
+
