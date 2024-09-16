@@ -605,6 +605,33 @@ Again let's change into the folder, list the files, and npm install the deps.
 
 This time we have a similar setup to the frontend example, but we have an additional file in src/app/server.cljs which of course holds our server code.
 
+To compile this we have a new section in the `shadow-cljs.edn` which specifies how to build the server. Note we've got a different target of `:node-server` and we write it out to devserver.js during watch mode.
+
+Our server.cljs looks similar to the nbb server we looked at before with a couple of differences we'll look at once we get it running.
+
+-->
+
+---
+
+# shadow-cljs
+### full stack
+
+```
+npx shadow-cljs watch app server
+node devserver.js
+```
+
+<!--
+
+Let's get this stack running. You can see here we have some additional complexity. Like before we ask shadow-cljs to do the compile and watch loop. This time however we also need to run the server side artifact itself and we do that by using node.
+
+There are different ways to invoke these different processes at the same time and kill them when the dev server is stopped but this does add a bit of complexity since we now have two compiled artifacts.
+
+- test page static rendered
+- common component
+- no live-reloading of routes
+- what if you want to template things?
+
 -->
 
 ---
