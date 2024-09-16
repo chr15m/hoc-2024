@@ -17,9 +17,9 @@
       (.send (render-to-static-markup [homepage]))))
 
 (defn init []
-  (let [server (express)]
-    (.get server "/testpage" #(serve-homepage %1 %2))
-    (.use server "/" (.static express "public"))
-    (.listen server 8000)
+  (let [app (express)]
+    (.get app "/testpage" #(serve-homepage %1 %2))
+    (.use app "/" (.static express "public"))
+    (.listen app 8000)
     (print "Server running on port 8000.")))
 
