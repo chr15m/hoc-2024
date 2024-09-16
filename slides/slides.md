@@ -25,7 +25,7 @@ running not just in the browser, but also on the server, on the backend.
 
 Sitefox is the framework I built to give myself a headstart building
 ClojureScript back-ends. Hopefully some of you will find it useful,
-but at the very least you'll learn about what kinds of things a web
+and at the very least you'll learn about what kinds of things a web
 backend needs to do.
 -->
 
@@ -64,7 +64,7 @@ an example folder that we will get to soon.
 
 To make sure everybody has the minumum version of Node installed, please run the `./check-node-version` script.
 
-If you don't have a recent enough Node version it will tell you how to install it.
+If you don't have a recent enough Node version it will tell you how to install it with nvm. If you want to use your package manager or a different node version manager like `fnm` you can do that too.
 
 
 
@@ -307,8 +307,61 @@ node devserver.js
 # squint
 ### a new borkdude cljs variant
 
----
+`examples/squint`
 
+<br>
+
+<v-clicks>
+
+### tradeoffs
+
+- setup varies from simple to complex
+- native node integrated builds
+- dependent on node not java at build
+- can consume node deps
+- no clojure deps
+- reagent not available
+- uses javascript datastructures
+- smaller artifact sizes
+- macros
+- tooling from javascript
+
+</v-clicks>
+
+<!--
+
+Now we're going to look at Squint.
+
+- dialect of ClojureScript with compiler and standard library
+- "a tool to target JS when you need something more light-weight in terms of interop and bundle size."
+- only uses built-in javascript datastructures, not Clojure collections
+- Squint's output is designed to work well with ES modules.
+
+- look at files
+- package.json
+- `npx squint run example.cljs`
+- look at example.mjs
+
+- `npx squint run server.cljs`
+- note the #html tag
+- note about `node --watch`
+
+- go into frontend
+- uses a javascript build tool called vite
+- squint.edn - for configuring watch builds
+- `npx squint watch`
+- `npx vite --config viteconfig.js public`
+
+- note tighter integration with react
+
+- has #html and #jsx tags
+- leverages the native javascript tooling
+
+- tradeoffs
+
+-->
+
+---
 
 # scittle
 ### frontends without build
@@ -347,6 +400,3 @@ This scittle demo is quite different to the examples we've looked at so far.
 - network tab = 1.14 MB (203.86 kB transferred)
 
 -->
-
----
-
