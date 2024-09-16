@@ -74,7 +74,7 @@ I will leave this QR code and git repo up on the next couple of slides.
 # Workshop structure
 
 - 30 minutes intro and deps
-- 30 minutes = 6 examples
+- 30 minutes = 5 examples
 - 30 minutes about Sitefox
 
 <br><br>
@@ -260,11 +260,11 @@ So those are some reasons why we might want to run ClojureScript on the backend 
 
 ### Backend
 
-|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
-|-------------|----------|------|----------|---------|---|
-| shadow-cljs | X        | X    | X        | X       |   |
-| nbb         |          |      | X        | X       | X |
-| squint      | X        |      |          |         | X |
+|             | Compiled | Java  | Clj data | Reagent compat | ![](/bdude.png) |
+|-------------|----------|-------|----------|---------|---|
+| shadow-cljs | compiled | java build | clj collections    | as library       |   |
+| nbb         | interpreted    | no build | clj collections       | built in       |  ✔ |
+| squint      | compiled | node build  |  js native        | native react |  ✔ |
 
 ### Frontend
 

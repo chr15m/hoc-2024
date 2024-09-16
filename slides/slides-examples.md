@@ -91,7 +91,8 @@ Notice that I have put a button in the Reagent example, but it doesn't do anythi
 ---
 
 # nbb
-### tradeoffs
+### Cljs interpreter for Ad-Hoc Node scripting
+## tradeoffs
 
 <v-clicks>
 
@@ -161,6 +162,17 @@ Unlike shadow-cljs there is no built in live-reloading and much of the other ext
 <!--
 
 I've highlighted nbb in the table here. So we can see the main properties being it is server side running on Node, it is not compiled, it does not need Java to compile as there is no compile step, it uses native Clojure datastructures, it has Reagent built in, and it's a borkdude project.
+
+-->
+
+---
+
+# shadow-cljs
+### traditional ClojureScript build tool
+
+<!--
+
+Explain what shadow-cljs is.
 
 -->
 
@@ -379,6 +391,13 @@ So shadow-cljs ClojureScript can target both the backend and frontend, it has a 
 Now we're going to take a look at Squint.
 
 Note that there is a more detailed and in depth talk about Squint later in the day by Felix Alm called "a taste of Clojure for JavaScript devs".
+
+- breaks clojure compat
+- tighter javascript integration
+- native js datastructures inside
+
+TODO: add react code example
+
 -->
 
 

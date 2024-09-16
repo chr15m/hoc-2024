@@ -17,23 +17,11 @@ Introduction to Sitefox, what is is and why it exists.
 - mostly glue code
 -->
 
----
-
-# Sitefox on nbb
-
-<!--
-Sitefox runs wherever you have ClojureScript on Node and access to Reagent. That means we can run 
-
-Using Sitefox with nbb (backend only).
--->
-
----
-
-# Sitefox on shadow-cljs
-
-<!--
-Using sitefox with full-stack shadow-cljs.
--->
+```
+npm init sitefox-shadow-fullstack sitefox-project
+cd sitefox-project
+make watch
+```
 
 ---
 
@@ -52,6 +40,25 @@ Using sitefox with full-stack shadow-cljs.
 - Live reloading (shadow-cljs)
 
 </v-clicks>
+
+---
+
+# Sitefox on nbb
+
+<!--
+Sitefox runs wherever you have ClojureScript on Node and access to Reagent. That means we can run 
+
+Using Sitefox with nbb (backend only).
+-->
+
+---
+
+# Sitefox on shadow-cljs
+
+<!--
+Using sitefox with full-stack shadow-cljs.
+-->
+
 
 ---
 
