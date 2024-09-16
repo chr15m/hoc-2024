@@ -5,31 +5,6 @@ defaults:
 
 <link rel="stylesheet" href="/style.css"/>
 
-<!--
-
-Traditionally ClojureScript runs on the front-end in the browser.
-Probably the most common way to run ClojureScript in the browser today is to use shadow-cljs.
-
-
-# TODO:
-# - [x] put git repo address in talk
-# - [x] get the install flow checked with versions
-# - [x] Think about nvm isolation and out of date shadowfront for example
-# - [ ] Create .node_version file?
-# - [ ] Replace shadowfront step with an example folder in the GH repo
-# - [ ] Examples of everything
-# - [ ] Artifact size comparisons?
-
-
-# - 6 slides with bullets of pros/cons
-
-Through examples show what these things are, get them running so you can understand the tradeoffs.
-Subtext: full stack app with cljs without JVM.
-
-My motivation: full stack js withou the jvm. sitefox is a framework for this. before we get to sitefox we need to understand the different ways to run clojurescript without the JVM and their tradeoffs.
-
--->
-
 # Full-stack cljs web apps
 ## with and without Sitefox
 
@@ -38,6 +13,8 @@ By Chris McCormick
 chris@mccormick.cx
 
 <!--
+
+PRE: big terminal font, `npm run dev`, presenter mode
 
 Hey, thanks for coming to the workshop today.
 My name is Chris and today we are going to look at full-stack
@@ -54,169 +31,7 @@ backend needs to do.
 
 ---
 
-# Before we start
-### Check out the repo
-
-<img src="/repo-qr.png" width=200/>
-
-`git clone https://github.com/chr15m/hoc-2024`
-
-<!--
-Before we start I'm going to get you to check out the repo for this workshop.
-The repo contains these slides and it also contains
-an example folder that we will get to soon.
-
-I will leave this QR code and git repo up on the next couple of slides.
--->
-
----
-
-# Workshop structure
-
-- 30 minutes intro and deps
-- 30 minutes = 5 examples
-- 30 minutes about Sitefox
-
-<br><br>
-
-<img src="/repo-qr.png" width=150/>
-
-`git clone https://github.com/chr15m/hoc-2024`
-
-<!--
-This is the structure of today's workshop.
-
-We're going to spend 30 minutes on this current part,
-which is the intro and getting dependencies installed.
-
-Then we are going to spend 30 minutes in a whirlwind tour
-of different ways to run ClojureScript without using the JVM.
-
-Then we are going to spend 30 minutes looking at Sitefox.
--->
-
----
-
-# Before we start
-### Checking node version
-
-`./check-node-version`
-
-<br>
-<br>
-
-<img src="/repo-qr.png" width=150/>
-
-`git clone https://github.com/chr15m/hoc-2024`
-
-
-<!--
-Once we have the git repo checked out,
-we're going to run this script to check your node version.
-
-If you don't have a recent enough node installed, or any node installed,
-it's going to suggest you install nvm or "Node Version Manager".
-This is an easy way to install specific versions of node.
-If you want to use homebrew or your OS packages that's fine too,
-as long as your version of node is recent enough to run the examples.
--->
-
----
-
 # ClojureScript w/o the JVM
-
-<v-clicks>
-
-- Beyond shadow-cljs
-- ClojureScript on the server
-- Sitefox framework
-
-</v-clicks>
-
-<footer>
-  <code>https://github.com/chr15m/hoc-2024</code>
-  <code>./check-node-version</code>
-</footer>
-
-<!--
-I'm going to crack on with these intro slides but please note the
-GitHub repo in the bottom left and the command you need to run in
-the bottom right. I'll leave those there and we'll check in with
-everyone shortly.
-
-So I want to show you three main things today.
-
-Broadly speaking these three things are about running ClojureScript without depending on the JVM at runtime.
-
-The first thing is about building and running ClojureScript in new ways beyond just shadow-cljs, and the tradeoffs of doing that, including stacks that don't need the JVM at compile time.
-
-The second thing is about running ClojureScript on the back-end, on the server side, or in the cloud, not just in the browser.
-
-The third thing is about my own backend web development framework Sitefox, and how that fits into this puzzle of building ClojureScript web technology.
--->
-
----
-
-# Going all-in on ClojureScript
-
-### what it means
-
-<footer>
-  <code>https://github.com/chr15m/hoc-2024</code>
-  <code>./check-node-version</code>
-</footer>
-
-<!--
-Let's take a closer look at what going full-stack, all-in on ClojureScript means.
--->
-
----
-
-# Going all-in on ClojureScript
-
-```mermaid
-graph TD
-B[ClojureScript<br>browser] --> C[Clojure<br>JVM]
-```
-
-<footer>
-  <code>https://github.com/chr15m/hoc-2024</code>
-  <code>./check-node-version</code>
-</footer>
-
-<!--
-This is a simplified view of the traditional way to run ClojureScript and Clojure together.
-
-Here you can see ClojureScript, usually compiled to JavaScript with shadow-cljs these days, or possibly lein and figwheel, and it is running in the browser.
-
-Below that you can see Clojure running on the server, often from a jar file and using the JVM.
--->
-
----
-
-# Going all-in on ClojureScript
-
-```mermaid
-graph TD
-B[ClojureScript<br>browser] --> C[ClojureScript<br>node.js]
-```
-
-<footer>
-  <code>https://github.com/chr15m/hoc-2024</code>
-  <code>./check-node-version</code>
-</footer>
-
-<!--
-What I'm talking about today is this setup.
-
-The frontend is the same, and we've replaced Clojure on the JVM with ClojureScript running on the Node JavaScript VM instead.
-
-What this means in practice is our interop is no longer calling into Java functions and libraries, but now we are calling into JavaScript functions and libraries and leveraging the Node modules ecosystem on the server side.
--->
-
----
-
-# Full-stack ClojureScript
 
 ## why?
 
@@ -231,11 +46,31 @@ What this means in practice is our interop is no longer calling into Java functi
 </v-clicks>
 
 <footer>
-  <code>https://github.com/chr15m/hoc-2024</code>
+  <code>git clone https://github.com/chr15m/hoc-2024</code>
   <code>./check-node-version</code>
 </footer>
 
 <!--
+Before we start I'm going to get you to check out the repo for this workshop.
+You can see the git clone command in the bottom left.
+
+Let's all go ahead and run that to get the code checked out.
+
+We do have a lot of ground to cover today.
+If at any point we are moving too fast, please feel free to raise your hand and tell me to slow down.
+
+The repo contains these slides and it also contains
+an example folder that we will get to soon.
+
+To make sure everybody has the minumum version of Node installed, please run the `./check-node-version` script.
+
+If you don't have a recent enough Node version it will tell you how to install it.
+
+
+
+
+Today we're looking at running ClojureScript without the JVM.
+
 Why would we even want to do this? The JVM is mature and efficient and Clojure was carefully designed to run on top of it. Why would we want to run ClojureScript code on the server backend as well as the browser frontend?
 
 Here are some of the reasons you might want to do this.
@@ -260,19 +95,20 @@ So those are some reasons why we might want to run ClojureScript on the backend 
 
 ### Backend
 
-|             | Compiled | Java  | Clj data | Reagent compat | ![](/bdude.png) |
-|-------------|----------|-------|----------|---------|---|
-| shadow-cljs | compiled | java build | clj collections    | as library       |   |
-| nbb         | interpreted    | no build | clj collections       | built in       |  ✔ |
-| squint      | compiled | node build  |  js native        | native react |  ✔ |
+
+|             | Compiled    | Java       | Clj data        | Reagent compat | ![](/bdude.png) |
+|-------------|-------------|------------|-----------------|----------------|-----------------|
+| shadow-cljs | compiled    | java build | clj collections | as library     |                 |
+| nbb         | interpreted | no build   | clj collections | built in       | ✔               |
+| squint      | compiled    | node build | js native       | native react   | ✔               |
 
 ### Frontend
 
-|             | Compiled | Java | Clj data | Reagent | ![](/bdude.png) |
-|-------------|----------|------|----------|---------|---|
-| shadow-cljs | X        | X    | X        | X       |   |
-| scittle*    |          |      | X        | X       | X |
-| squint      | X        |      |          |         | X |
+|             | Compiled    | Java       | Clj data        | Reagent      | ![](/bdude.png) |
+|-------------|-------------|------------|-----------------|--------------|-----------------|
+| shadow-cljs | compiled    | java build | clj collections | as library   |                 |
+| scittle*    | interpreted | no build   | clj collections | js module    | ✔               |
+| squint      | compiled    | node build | js native       | native react | ✔               |
 
 * sitefox & cherry
 
@@ -304,18 +140,6 @@ Just a couple more notes to finish off.
 
 ---
 
-# The Goal
-## zero to "hello world"
-## (tools .forEach)
-
-<!--
-What we are going to do today is go from zero to a "hello world" web app using each of the technologies or tools I just showed you.
-
-For each tool we're going to get it running, look at the source code, and also take a look at the tradeoffs.
--->
-
----
-
 # The examples
 
 - nbb
@@ -333,4 +157,196 @@ We have nbb, shadow-cljs frontend, shadow-cljs "full stack", scittle, squint, an
 
 -->
 
+---
+
+# nbb
+
+### Cljs interpreter for Ad-Hoc Node scripting
+
+`examples/nbb`
+
+<br>
+
+<v-clicks>
+
+## tradeoffs
+
+- easy to get started
+- no compile step
+- fast startup time
+- backend only
+- consume Node deps
+- consume Clojure deps
+- small artifact (1.2Mb JS)
+- macros
+- reagent available
+- no live-reloading built in
+
+</v-clicks>
+
+<!--
+
+Let's start with the nbb example.
+
+Nbb provides an easy way to run ClojureScript on the Node runtime.
+
+With all of these examples we are going to change into the folder, take a look at the files, do an npm install, and then run the examples.
+
+
+- Look at package.json - note it is minimal
+- Run `npx nbb hello.cljs` - startup time is fast.
+- `npx nbb server.cljs` - uses Node express library to run a webserver. Visit the page.
+- `npx nbb server_reagent.cljs` - Note the button does nothing becuase it's server side rendered.
+
+
+
+Let's talk about the tradeoffs when using nbb.
+
+It's easy to get started with a simple package.json and standard Node tooling.
+
+There's no compile step, you can just run your code directly on Node.
+
+As we've observed it has a fast startup time.
+
+Nbb only runs on the backend on Node, you can't run it in the browser.
+
+You can easily consume Node dependencies as we saw with the `express` web server in the server demo. You just add the deps to your package.json, do `npm install`, and then you can require them.
+
+It's also possible to consume Clojure deps. To do this you need to have babashka installed and you specify the deps in `nbb.edn`. We won't got into this but it's good to bear in mind.
+
+Nbb is distributed as a compiled JavaScript artifact. When you `npm install` it you only pull down 1.2Mb which is pretty good for a node dependency. Of course this is on the server side where artifact size is maybe less important.
+
+Macros are available.
+
+Reagent is built in and you don't have to install it as a dep.
+
+Unlike shadow-cljs there is no built in live-reloading and much of the other extended shadow-cljs tooling is missing. This makes it more suitable for simpler backends.
+
+-->
+
+---
+
+# shadow-cljs (frontend)
+### traditional ClojureScript build tool
+
+`examples/shadow-frontend`
+
+<!--
+
+- Switch to `examples/shadow-frontend`.
+- Frontend is where shadow-cljs has traditionally been used lately.
+- `ls` and `npm install` and look at the files.
+- Note package.json, shadow-cljs.edn, public/index.html because frontend, and src tucked away.
+- Node deps defined in package.json.
+- Clojure deps defined in shadow-cljs.edn.
+- `npx shadow-cljs watch app`
+- Visit localhost:8000
+- Changes are hot-loaded into the browser.
+- Note localhost:9630 tooling.
+- Killer feature of real time hot loading.
+- Separate command to compile to production artifact `npx shadow-cljs release app`
+- Note the size `275k` which includes compiled cljs, React, and compiled Reagent.
+
+-->
+
+---
+
+# shadow-cljs (full-stack)
+### compiled output run on Node
+
+`examples/shadow-fullstack`
+
+<br>
+
+<v-clicks>
+
+### tradeoffs
+
+- more complex setup
+- compilation step
+- dependent on Java
+- slower startup time
+- consume Node deps
+- consume Clojure deps
+- medium sized artifact (275kb JS)
+- macros
+- reagent available
+- great tooling
+
+</v-clicks>
+
+<!--
+
+Next up is the shadow-cljs full-stack example.
+
+- compiling two JavaScript artifacts
+- one in the browser like before
+- an additional target run on Node on the server
+- npm install and look at the files
+- look at extra files
+- look at shadow-cljs.edn change
+- look at server.cljs - similar to nbb server
+
+```
+npx shadow-cljs watch app server
+node devserver.js
+```
+
+- note the common component in `common.cljs`
+
+- additional complexity from two different processes
+
+- look at tradeoffs
+
+- possible to get artifact size down but it's tricky
+
+-->
+
+---
+
+# squint
+### a new borkdude cljs variant
+
+---
+
+
+# scittle
+### frontends without build
+
+`examples/scittle`
+
+<br>
+
+<v-clicks>
+
+### tradeoffs
+
+- super simple setup
+- no build at all
+- not dependent on java or node
+- consume JS modules from CDN
+- some clojure deps pre-compiled
+- larger artifact (1.14MB)
+- macros
+- reagent available
+- basic tooling
+
+</v-clicks>
+
+<!--
+
+This scittle demo is quite different to the examples we've looked at so far.
+
+- look at files
+- everything in index.html
+- no npm install
+- just open it in the browser
+- full reagent app, look at source
+- we're loading the Scittle ClojureScript interpreter from CDN.
+- also loading pre-compiled deps from CDN.
+- network tab = 1.14 MB (203.86 kB transferred)
+
+-->
+
+---
 
