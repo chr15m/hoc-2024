@@ -41,3 +41,15 @@
   left: 0px;
   padding: 0.5em 1em;
 }
+
+.slidev-layout .hi-1 tbody tr:nth-child(1) {
+  background-color: #575;
+}
+
+.slidev-layout .hi-2 tbody tr:nth-child(2) {
+  background-color: #575;
+}
+
+.slidev-layout .hi-3 tbody tr:nth-child(3) {
+  background-color: #575;
+}
