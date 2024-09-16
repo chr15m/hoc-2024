@@ -17,8 +17,8 @@ Ensure your Node version is up to date:
 # Slides
 
 ```
-cd talk
-npm run start
+cd slides
+npm run dev
 ```
 
-Then visit <https://localhost:3000>.
+Then visit <https://localhost:3030>.
