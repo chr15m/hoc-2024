@@ -1,4 +1,4 @@
 (ns app.common)
 
 (defn common-component []
-  [:div "This is common code."])
+  [:p "This is common code."])

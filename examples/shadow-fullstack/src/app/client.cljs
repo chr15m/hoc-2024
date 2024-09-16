@@ -1,4 +1,4 @@
-(ns app.core
+(ns app.client
   (:require
     [reagent.core :as r]
     [reagent.dom :as rdom]
@@ -12,7 +12,10 @@
    [:p "Value: " [:code (:val @state)]]
    [:button {:on-click #(swap! state update :val dec)} "Down"]
    [:button {:on-click #(swap! state update :val inc)} "Up"]
-   [common-component]])
+   [common-component]
+   [:p [:a {:href "/testpage"
+            :target "_BLANK"}
+        "Server rendered /testpage"]]])
 
 (defn init []
   (rdom/render [app]
