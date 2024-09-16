@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Specify the required major Node version
-REQUIRED_MAJOR_VERSION=18
+REQUIRED_MAJOR_VERSION=16
 
 # Function to extract major version
 get_major_version() {
