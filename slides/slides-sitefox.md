@@ -27,8 +27,6 @@ make watch
 
 # Batteries included
 
-<v-clicks>
-
 - Routing (Express)
 - Templates (Reagent)
 - Key-value store + Database (Keyv)
@@ -38,8 +36,6 @@ make watch
 - Forms (node-input-validator)
 - Logging (rotating-file-stream)
 - Live reloading (shadow-cljs)
-
-</v-clicks>
 
 ---
 
