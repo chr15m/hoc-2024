@@ -17,8 +17,10 @@ if command -v node >/dev/null 2>&1; then
         echo "Success: Node.js $INSTALLED_VERSION is already installed and meets the minimum version requirement."
         exit 0
     else
-        echo "Installed Node.js version $INSTALLED_VERSION does not meet the minimum requirement. Proceeding with installation."
+        echo "Installed Node.js version $INSTALLED_VERSION does not meet the minimum requirement."
     fi
+else
+    echo "Node is not installed."
 fi
 
 # Check if nvm is installed
@@ -28,8 +30,8 @@ if ! command -v nvm >/dev/null 2>&1; then
     echo "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash"
     echo
     echo "Alternatively you can use your OS package manager, or fnm like this:"
-    echo "fnm install v18"
-    echo "fnm use v18"
+    echo "fnm install $NVM_VERSION"
+    echo "fnm use $NVM_VERSION"
     exit 1
 fi
 
