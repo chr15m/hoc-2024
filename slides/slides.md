@@ -14,7 +14,7 @@ chris@mccormick.cx
 
 <!--
 
-PRE: big terminal font, `npm run dev`, presenter mode
+PRE: big terminal/gvim font, `cd slides && npm run dev`, presenter mode
 
 Hey, thanks for coming to the workshop today.
 My name is Chris and today we are going to look at full-stack
