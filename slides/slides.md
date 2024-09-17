@@ -359,6 +359,8 @@ Now we're going to look at Squint.
 
 - tradeoffs
 
+- NOTE: Squint talk by Felix Alm tomorrow if you want more depth.
+
 -->
 
 ---
@@ -399,6 +401,8 @@ This scittle demo is quite different to the examples we've looked at so far.
 - also loading pre-compiled deps from CDN.
 - network tab = 1.14 MB (203.86 kB transferred)
 
+- Note: there is a talk on using Scittle by Josh Glover but it is on at the moment. You can find him if you are looking for more expertise on the subject.
+
 -->
 
 ---
@@ -410,6 +414,8 @@ This scittle demo is quite different to the examples we've looked at so far.
 <!--
 
 Introduction to Sitefox, what is is and why it exists.
+
+- a library for building web app backends with ClojureScript.
 
 - story of why i built it:
   - coming from django
@@ -426,10 +432,6 @@ Introduction to Sitefox, what is is and why it exists.
 
 # Sitefox
 
-`npm init sitefox-shadow-fullstack@latest sitefoxdemo`
-
-<v-clicks>
-
 ## Batteries included
 
 - Routing (Express)
@@ -442,15 +444,138 @@ Introduction to Sitefox, what is is and why it exists.
 - Logging (rotating-file-stream)
 - Live reloading (shadow-cljs)
 
-</v-clicks>
+`npm init sitefox-shadow-fullstack@latest sitefoxdemo`
 
 <!--
 
+- web backends had to do basically the same thing for decades
+- PHP is an inspiration for this list (built-ins)
+
+- serve different pages
+- persist data
+- authenticate users
+- send emails
+- handle form submission
+
+
+    PORT - configure the port Sitefox web server binds to.
+    BIND_ADDRESS - configure the IP address Sitefox web server binds to.
+    SMTP_SERVER - configure the outgoing SMTP server e.g. SMTP_SERVER=smtps://username:password@mail.someserver.com/?pool=true.
+    DATABASE_URL - configure the database to connect to. Defaults to sqlite://./database.sqlite.
+
+
 - go into `examples/sitefox`
 - look at README
-- explain about init scripts
+- explain about npm create scripts
 - sets up a shadow-cljs full stack project with sitefox
 - follow the instructions
+
+- poke around the code
+
+- then start editing demos interactively:
+
+
+### routing demo
+
+```
+(j/call app :get "/hello" (fn [_req res _done] (.send res "Hello world!")))
+
+(defn hello [_req res _done]
+  (.send res "Hello world!"))
+```
+
+### templates demo (select-apply)
+
+### sessions
+
+server
+
+```
+(defn get-preferences [req res]
+  (.json res
+         (or (j/get-in req [:session :preferences]) nil)))
+
+(defn set-preferences [req res]
+  (let [preferences (j/get req :body)]
+    (j/assoc-in! req [:session :preferences] preferences)
+    (get-preferences req res)))
+
+(j/call app :get "/preferences" get-preferences)
+(j/call app :post "/preferences" set-preferences)
+```
+
+client
+
+```
+(defn set-nickname [state]
+  (swap! state assoc :sending true)
+  (p/let [result (json-post "/preferences"
+                            {:nickname (:nickname @state)})]
+    (js/console.log result)
+    (swap! state dissoc :sending)))
+
+(p/let [res (js/fetch "/preferences")
+          preferences (.json res)]
+    (swap! state assoc :nickname (j/get preferences :nickname))
+    (rdom/render [component-main state]
+                 (js/document.getElementById "app")))
+
+[:p
+    [:label "Nickname: "
+     [:input {:value (:nickname @state)
+              :on-change #(swap! state assoc :nickname
+                                 (-> % .-target .-value))}]
+     (if (:sending @state)
+       "Sending"
+       [:button {:on-click #(set-nickname state)} "Save"])]]
+```
+
+### kv
+
+client
+
+```
+(when (not (:sending @state))
+     [:p
+      [:input {:value (:message @state)
+               :placeholder "Your message..."
+               :on-change #(swap! state assoc :message
+                                  (-> % .-target .-value))}]
+      [:button {:on-click #(add-message state)} "Send"]])
+   [:ul
+    (for [m (:messages @state)]
+      [:li (pr-str m)])]]
+
+
+(p/let [res (js/fetch "/preferences")
+          preferences (.json res)
+          res (js/fetch "/messages")
+          messages (.json res)]
+    (swap! state assoc
+           :nickname (j/get preferences :nickname)
+           :messages messages)
+    (rdom/render [component-main state]
+                 (js/document.getElementById "app")))
+```
+
+server
+
+```
+(defn get-messages [_req res]
+  (p/let [messages (db/ls "messages")]
+    (.json res messages)))
+
+(defn add-message [req res]
+  (p/let [message (j/get req :body)
+          table (db/kv "messages")]
+    (.set table (js/Date.) message)
+    (get-messages req res)))
+
+  (j/call app :get "/messages" get-messages)
+  (j/call app :post "/message" add-message)
+```
+
+### email
 
 - demos:
   - routing
