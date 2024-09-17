@@ -348,6 +348,7 @@ Now we're going to look at Squint.
 
 - go into frontend
 - uses a javascript build tool called vite
+- because squint leverages js tooling there are as many ways to run it as there are ways to run js
 - squint.edn - for configuring watch builds
 - `npx squint watch`
 - `npx vite --config viteconfig.js public`
